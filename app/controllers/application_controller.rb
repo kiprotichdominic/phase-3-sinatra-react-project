@@ -22,4 +22,33 @@ class ApplicationController < Sinatra::Base
     todos.to_json
   end
 
+
+  get '/todolist' do 
+    todolist = TodoList.all
+    todolist.to_json
+  end
+
+  post "/todo" do 
+    todo = Todo.create(name: params[:name],description: params[:description])
+    todo.to_json
+  end
+
+  post "/todolist" do 
+    todolist = TodoList.create(text: params[:text],color: params[:color])
+    todolist.to_json
+  end
+
+
+  patch "/todos/:id" do 
+    todo = Todo.find(params[:id])
+    todo.update(name: params[:name],description: params[:description])
+    todo.to_json
+  end
+
+  patch "/todo/:id" do 
+    todo = Todo.find(params[:id])
+    todo.destroy
+    todo.to_json
+  end
+
 end
